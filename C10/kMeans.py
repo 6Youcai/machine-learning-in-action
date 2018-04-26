@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
+from sklearn.cluster import KMeans
 
 def load_data(file_name):
     data_mat = []
@@ -27,7 +28,7 @@ def rand_cent(data_set, k):
         centroids[:, j] = min_j + range_j * np.random.rand(k, 1)
     return centroids
 
-def kMeans(data_set, k, distance_fn = euler_distance, cent_fn = rand_cent):
+def kMeans_0(data_set, k, distance_fn = euler_distance, cent_fn = rand_cent):
     m = data_set.shape[0]
     cluster_assment = np.mat(np.zeros((m, 2))) ## index, distance
     # 初始中心点
@@ -56,3 +57,10 @@ def kMeans(data_set, k, distance_fn = euler_distance, cent_fn = rand_cent):
 
 def biKmeans(dataSet, k, distMeas=euler_distance):
     pass
+
+def sklean():
+    # http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
+    kmeans_model = KMeans(n_clusters = 3, init = "random", max_iter = 300)
+    dat_in = load_data("testSet.txt")
+    result = kmeans_model.fit_predict(dat_in)
+    return result
