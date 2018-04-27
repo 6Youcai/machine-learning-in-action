@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
+from sklearn import linear_model
 
 def load_data(file_name):
     num_feat = len(open(file_name).readline().split('\t')) - 1
@@ -78,3 +79,16 @@ def ridge_test(xarr, yarr):
 
 # lasso
 # 前向逐步回归
+
+def sklearn():
+    xarr, yarr = load_data("ex0.txt")
+
+    # http://scikit-learn.org/stable/modules/classes.html#module-sklearn.linear_model
+    lm = linear_model.LinearRegression()
+    lm.fit(xarr, yarr)
+    # print(lm.intercept_, lm.coef_)
+    y_hat = lm.predict(xarr)
+    # print(y_hat)
+
+    lm_ridge = linear_model.Ridge(alpha = 0.5)
+    lm_lasso = linear_model.Lasso(alpha = 0.1)
